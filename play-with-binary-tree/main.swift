@@ -18,5 +18,11 @@ tree.addNode(Node.init(value: 15))
 tree.addNode(Node.init(value: 11))
 tree.addNode(Node.init(value: 18))
 tree.printTree()
+
+// isNodeInTree?
 print(tree.findNode(11))
 print(tree.findNode(12))
+
+
+print("Min leaf in right sub-tree: \(tree.minLeafInRightSubTree())")
+print("Max leaf in left sub-tree: \(tree.maxLeafInLeftSubTree())")
