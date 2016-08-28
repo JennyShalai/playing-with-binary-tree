@@ -20,9 +20,23 @@ tree.addNode(Node.init(value: 18))
 tree.printTree()
 
 // isNodeInTree?
-print(tree.findNode(11))
-print(tree.findNode(12))
+if let node = tree.findNode(11) {
+    print(node)
+} else {
+    print("Node not found")
+}
+if let node = tree.findNode(12) {
+    print(node)
+} else {
+    print("Node not found")
+}
 
-
-print("Min leaf in right sub-tree: \(tree.minLeafInRightSubTree())")
-print("Max leaf in left sub-tree: \(tree.maxLeafInLeftSubTree())")
+tree.printTree()
+tree.deleteNode(5)
+tree.printTree()
+tree.deleteNode(18)
+tree.printTree()
+tree.deleteNode(10) // doesn't work
+tree.printTree()
+tree.deleteNode(15) // doesn't work
+tree.printTree()

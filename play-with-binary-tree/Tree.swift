@@ -25,11 +25,13 @@ class Tree {
         while true {
             if value <= h.value && h.leftChild == nil {
                 h.leftChild = node
+                node.parent = h
                 break
             }
             
             if value > h.value && h.rightChild == nil {
                 h.rightChild = node
+                node.parent = h
                 break
             }
             
@@ -62,25 +64,24 @@ class Tree {
         }
     }
     
-    // looking for node and return TRUE 
-    // if could find one, FALSE otherwise
-    func findNode(nodeValue: Int) -> Bool {
+    // looking for node in tree
+    func findNode(nodeValue: Int) -> Node? {
         var h = self.head
         while true {
             if nodeValue == h.value {
-                return true
+                return h
             } else if nodeValue < h.value && h.leftChild != nil {
                 h = h.leftChild!
             } else if nodeValue > h.value && h.rightChild != nil {
                 h = h.rightChild!
             } else {
-                return false
+                return nil
             }
         }
     }
     
-    // find min node in tree
-    private func minLeafInTreeWith(head: Node) -> Node {
+    // find min node
+    private func minLeafInTreeWithHead(head: Node) -> Node {
         var minLeaf: Node = head
         while true {
             if minLeaf.leftChild != nil {
@@ -91,8 +92,8 @@ class Tree {
         }
     }
     
-    // find max node in tree
-    private func maxLeafInTreeWith(head: Node) -> Node {
+    // find max node
+    private func maxLeafInTreeWithHead(head: Node) -> Node {
         var maxLeaf: Node = head
         while true {
             if maxLeaf.rightChild != nil {
@@ -101,26 +102,63 @@ class Tree {
                 return maxLeaf
             }
         }
+        
+        
     }
     
-    // max leaf in left sub-tree
-    func maxLeafInLeftSubTree() -> Node {
-        let max = self.head
-        if max.leftChild != nil {
-            return self.maxLeafInTreeWith(max.leftChild!)
+    
+    // delete node in tree
+    func deleteNode(value: Int) {
+        
+        // checking provided node exists in tree
+        if let nodeForDeletion = self.findNode(value) {
+            
+            // delete root
+            if nodeForDeletion.leftChild == nil && nodeForDeletion.rightChild == nil && nodeForDeletion.parent == nil {
+                print("trying to delete root!")
+            }
+            
+            // delete leaf (no children)
+            if nodeForDeletion.leftChild == nil && nodeForDeletion.rightChild == nil && nodeForDeletion.parent != nil {
+                if nodeForDeletion.value == nodeForDeletion.parent!.leftChild?.value {
+                    nodeForDeletion.parent!.leftChild = nil
+                } else {
+                    nodeForDeletion.parent!.rightChild = nil
+                }
+            }
+            
+            // delete node
+            if nodeForDeletion.rightChild != nil {
+                
+                let newNode = self.minLeafInTreeWithHead(nodeForDeletion.rightChild!)
+                
+                // 1
+                newNode.rightChild = nodeForDeletion.rightChild
+                // 2
+                newNode.leftChild = nodeForDeletion.leftChild
+                // 3
+                nodeForDeletion.rightChild!.parent = newNode
+                // 4
+                if nodeForDeletion.leftChild != nil {
+                    nodeForDeletion.leftChild?.parent = newNode
+                }
+                // 5 
+                if newNode.parent!.leftChild?.value == newNode.value {
+                    newNode.parent!.leftChild = nil
+                }
+                // 6-7
+                newNode.parent = nodeForDeletion.parent
+                // 8
+                nodeForDeletion.parent?.leftChild = newNode
+                
+                
+                
+            }
+            
+            
+            
         }
-        return max
+        
     }
-    
-    // min leaf in right sub-tree
-    func minLeafInRightSubTree() -> Node {
-        let min = self.head
-        if min.rightChild != nil {
-            return self.minLeafInTreeWith(min.rightChild!)
-        }
-        return min
-    }
-    
-    
     
 }
