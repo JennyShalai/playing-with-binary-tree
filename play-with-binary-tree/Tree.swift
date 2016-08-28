@@ -43,6 +43,8 @@ class Tree {
         }
     }
     
+    // print tree in console as value of each node 
+    // from lowest to highest
     func printTree() {
         self.printSubTree(self.head)
     }
@@ -59,4 +61,23 @@ class Tree {
             printSubTree(head.rightChild!)
         }
     }
+    
+    // looking for node and return TRUE 
+    // if could find one, FALSE otherwise
+    func findNode(nodeValue: Int) -> Bool {
+        var h = self.head
+        while true {
+            if nodeValue == h.value {
+                return true
+            } else if nodeValue < h.value && h.leftChild != nil {
+                h = h.leftChild!
+            } else if nodeValue > h.value && h.rightChild != nil {
+                h = h.rightChild!
+            } else {
+                return false
+            }
+        }
+    }
+    
+    
 }

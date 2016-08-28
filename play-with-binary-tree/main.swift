@@ -18,4 +18,5 @@ tree.addNode(Node.init(value: 15))
 tree.addNode(Node.init(value: 11))
 tree.addNode(Node.init(value: 18))
 tree.printTree()
-
+print(tree.findNode(11))
+print(tree.findNode(12))
