@@ -9,15 +9,12 @@
 import Foundation
 
 var tree = Tree.init(head: Node.init(value: 10))
-tree.addNode(Node.init(value: 5))
-tree.addNode(Node.init(value: 8))
-tree.addNode(Node.init(value: 1))
-tree.addNode(Node.init(value: 6))
-tree.addNode(Node.init(value: 9))
-tree.addNode(Node.init(value: 15))
-tree.addNode(Node.init(value: 11))
-tree.addNode(Node.init(value: 18))
+let nodes: [Int] = [5, 8, 1, 6, 9, 15, 11, 18]
+for node in nodes {
+    tree.addNode(Node.init(value: node))
+}
 tree.printTree()
+print(tree.head)
 
 // isNodeInTree?
 if let node = tree.findNode(11) {
@@ -31,12 +28,14 @@ if let node = tree.findNode(12) {
     print("Node not found")
 }
 
-tree.printTree()
-tree.deleteNode(5)
-tree.printTree()
+
+//tree.deleteNode(5)
+//tree.printTree()
+print("-----")
 tree.deleteNode(18)
 tree.printTree()
-tree.deleteNode(10) // doesn't work
-tree.printTree()
+print("-----")
+//tree.deleteNode(10) // doesn't work
+//tree.printTree()
 tree.deleteNode(15) // doesn't work
 tree.printTree()

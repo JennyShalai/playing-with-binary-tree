@@ -128,6 +128,7 @@ class Tree {
             }
             
             // delete node
+            // take right sub-tree as new node
             if nodeForDeletion.rightChild != nil {
                 
                 let newNode = self.minLeafInTreeWithHead(nodeForDeletion.rightChild!)
@@ -152,6 +153,28 @@ class Tree {
                 nodeForDeletion.parent?.leftChild = newNode
                 
                 
+            // take left sub-tree as new node 
+            } else if nodeForDeletion.leftChild != nil {
+                
+                let newNode = self.maxLeafInTreeWithHead(nodeForDeletion.leftChild!)
+                
+                newNode.rightChild = nodeForDeletion.rightChild
+                
+                newNode.leftChild = nodeForDeletion.leftChild
+                
+                nodeForDeletion.leftChild!.parent = newNode
+                
+                if nodeForDeletion.rightChild != nil {
+                    nodeForDeletion.rightChild?.parent = newNode
+                }
+                
+                if newNode.parent!.rightChild?.value == newNode.value {
+                    newNode.parent!.rightChild = nil
+                }
+                
+                newNode.parent = nodeForDeletion.parent
+                
+                nodeForDeletion.parent?.rightChild = newNode
                 
             }
             
